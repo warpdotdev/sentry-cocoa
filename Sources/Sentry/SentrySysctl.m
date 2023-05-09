@@ -19,7 +19,7 @@ static NSDate *runtimeInit = nil;
  * when enabling the address sanitizer.
  */
 __used __attribute__((constructor(60000))) static void
-sentryModuleInitializationHook()
+sentryModuleInitializationHook(void)
 {
     moduleInitializationTimestamp = [NSDate date];
 }

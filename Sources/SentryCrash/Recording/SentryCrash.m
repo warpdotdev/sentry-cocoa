@@ -64,7 +64,7 @@ SentryCrash ()
 @end
 
 static NSString *
-getBundleName()
+getBundleName(void)
 {
     NSString *bundleName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
     if (bundleName == nil) {
@@ -74,7 +74,7 @@ getBundleName()
 }
 
 static NSString *
-getBasePath()
+getBasePath(void)
 {
     NSArray *directories
         = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
@@ -385,10 +385,7 @@ getBasePath()
 // ============================================================================
 
 #define SYNTHESIZE_CRASH_STATE_PROPERTY(TYPE, NAME)                                                \
-    -(TYPE)NAME                                                                                    \
-    {                                                                                              \
-        return sentrycrashstate_currentState()->NAME;                                              \
-    }
+    -(TYPE)NAME { return sentrycrashstate_currentState()->NAME; }
 
 SYNTHESIZE_CRASH_STATE_PROPERTY(NSTimeInterval, activeDurationSinceLastCrash)
 SYNTHESIZE_CRASH_STATE_PROPERTY(NSTimeInterval, backgroundDurationSinceLastCrash)

@@ -136,7 +136,7 @@ handleDealloc(const void *self)
         fn f = (fn)g_originalDealloc_##CLASS;                                                      \
         f(self, _cmd);                                                                             \
     }                                                                                              \
-    static void installDealloc_##CLASS()                                                           \
+    static void installDealloc_##CLASS(void)                                                       \
     {                                                                                              \
         Method method                                                                              \
             = class_getInstanceMethod(objc_getClass(#CLASS), sel_registerName("dealloc"));         \
@@ -154,7 +154,7 @@ CREATE_ZOMBIE_HANDLER_INSTALLER(NSObject)
 CREATE_ZOMBIE_HANDLER_INSTALLER(NSProxy)
 
 static void
-install()
+install(void)
 {
     unsigned cacheSize = CACHE_SIZE;
     g_zombieHashMask = cacheSize - 1;
@@ -222,7 +222,7 @@ setEnabled(bool isEnabled)
 }
 
 static bool
-isEnabled()
+isEnabled(void)
 {
     return g_isEnabled;
 }
@@ -238,7 +238,7 @@ addContextualInfoToEvent(SentryCrash_MonitorContext *eventContext)
 }
 
 SentryCrashMonitorAPI *
-sentrycrashcm_zombie_getAPI()
+sentrycrashcm_zombie_getAPI(void)
 {
     static SentryCrashMonitorAPI api = { .setEnabled = setEnabled,
         .isEnabled = isEnabled,
