@@ -232,7 +232,7 @@ sentrycrashlog_setLogFilename(const char *filename, bool overwrite)
 #endif
 
 bool
-sentrycrashlog_clearLogFile()
+sentrycrashlog_clearLogFile(void)
 {
     return sentrycrashlog_setLogFilename(g_logFilename, true);
 }

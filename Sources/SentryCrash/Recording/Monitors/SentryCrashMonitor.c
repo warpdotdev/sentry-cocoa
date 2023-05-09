@@ -195,7 +195,7 @@ sentrycrashcm_setActiveMonitors(SentryCrashMonitorType monitorTypes)
 }
 
 SentryCrashMonitorType
-sentrycrashcm_getActiveMonitors()
+sentrycrashcm_getActiveMonitors(void)
 {
     return g_activeMonitors;
 }

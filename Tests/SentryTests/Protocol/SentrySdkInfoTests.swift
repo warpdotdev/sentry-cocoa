@@ -43,7 +43,7 @@ class SentrySdkInfoTests: XCTestCase {
     }
     
     func testInitWithDict_AllNil() {
-        let dict = ["sdk": [ "name": nil, "version": nil]]
+        let dict = ["sdk": [ "name": nil, "version": nil] as [String: Any?]]
         
         assertEmptySdkInfo(actual: SentrySdkInfo(dict: dict))
     }

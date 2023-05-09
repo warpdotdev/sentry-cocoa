@@ -239,7 +239,7 @@ uuidBytesToString(const uint8_t *uuidBytes)
  * @return Executable path.
  */
 static NSString *
-getExecutablePath()
+getExecutablePath(void)
 {
     NSBundle *mainBundle = [NSBundle mainBundle];
     NSDictionary *infoDict = [mainBundle infoDictionary];
@@ -253,7 +253,7 @@ getExecutablePath()
  * @return The UUID.
  */
 static const char *
-getAppUUID()
+getAppUUID(void)
 {
     const char *result = nil;
 
@@ -311,7 +311,7 @@ getCPUArchForCPUType(cpu_type_t cpuType, cpu_subtype_t subType)
 }
 
 static const char *
-getCurrentCPUArch()
+getCurrentCPUArch(void)
 {
     const char *result = getCPUArchForCPUType(sentrycrashsysctl_int32ForName("hw.cputype"),
         sentrycrashsysctl_int32ForName("hw.cpusubtype"));
@@ -327,7 +327,7 @@ getCurrentCPUArch()
  * @return YES if the device is jailbroken.
  */
 static bool
-isJailbroken()
+isJailbroken(void)
 {
     return sentrycrashdl_imageNamed("MobileSubstrate", false) != UINT32_MAX;
 }
@@ -337,7 +337,7 @@ isJailbroken()
  * @return YES if the app was built in debug mode.
  */
 static bool
-isDebugBuild()
+isDebugBuild(void)
 {
 #ifdef DEBUG
     return YES;
@@ -351,7 +351,7 @@ isDebugBuild()
  * @return YES if this is a simulator build.
  */
 static bool
-isSimulatorBuild()
+isSimulatorBuild(void)
 {
 #if TARGET_OS_SIMULATOR
     return YES;
@@ -371,7 +371,7 @@ sentrycrash_isSimulatorBuild(void)
  * @return App Store receipt for iOS, nil otherwise.
  */
 static NSString *
-getReceiptUrlPath()
+getReceiptUrlPath(void)
 {
 #if SentryCrashCRASH_HOST_IOS
     return [NSBundle mainBundle].appStoreReceiptURL.path;
@@ -386,7 +386,7 @@ getReceiptUrlPath()
  * @return The stringified hex representation of the hash for this device + app.
  */
 static const char *
-getDeviceAndAppHash()
+getDeviceAndAppHash(void)
 {
     NSMutableData *data = nil;
 
@@ -434,7 +434,7 @@ getDeviceAndAppHash()
  * @return YES if this is a testing build.
  */
 static bool
-isTestBuild()
+isTestBuild(void)
 {
     return [getReceiptUrlPath().lastPathComponent isEqualToString:@"sandboxReceipt"];
 }
@@ -445,7 +445,7 @@ isTestBuild()
  * @return YES if there is an app store receipt.
  */
 static bool
-hasAppStoreReceipt()
+hasAppStoreReceipt(void)
 {
     NSString *receiptPath = getReceiptUrlPath();
     if (receiptPath == nil) {
@@ -461,13 +461,13 @@ hasAppStoreReceipt()
  * Check if the app has an embdded.mobileprovision file in the bundle.
  */
 static bool
-hasEmbeddedMobileProvision()
+hasEmbeddedMobileProvision(void)
 {
     return [[NSBundle mainBundle] pathForResource:@"embedded" ofType:@"mobileprovision"] != nil;
 }
 
 static const char *
-getBuildType()
+getBuildType(void)
 {
     if (isSimulatorBuild()) {
         return "simulator";
@@ -488,7 +488,7 @@ getBuildType()
 }
 
 static bytes
-getTotalStorageSize()
+getTotalStorageSize(void)
 {
     NSNumber *storageSize = [[[NSFileManager defaultManager]
         attributesOfFileSystemForPath:NSHomeDirectory()
@@ -497,7 +497,7 @@ getTotalStorageSize()
 }
 
 static bytes
-getFreeStorageSize()
+getFreeStorageSize(void)
 {
     NSNumber *storageSize = [[[NSFileManager defaultManager]
         attributesOfFileSystemForPath:NSHomeDirectory()
@@ -516,7 +516,7 @@ sentrycrashcm_system_freestorage_size(void)
 // ============================================================================
 
 static void
-initialize()
+initialize(void)
 {
     static bool isInitialized = false;
     if (!isInitialized) {
@@ -604,7 +604,7 @@ setEnabled(bool isEnabled)
 }
 
 static bool
-isEnabled()
+isEnabled(void)
 {
     return g_isEnabled;
 }
@@ -649,7 +649,7 @@ addContextualInfoToEvent(SentryCrash_MonitorContext *eventContext)
 }
 
 SentryCrashMonitorAPI *
-sentrycrashcm_system_getAPI()
+sentrycrashcm_system_getAPI(void)
 {
     static SentryCrashMonitorAPI api = { .setEnabled = setEnabled,
         .isEnabled = isEnabled,
