@@ -35,8 +35,7 @@ static NSString *SENTRY_REPLAY_FOLDER = @"replay";
  */
 static SentryTouchTracker *_touchTracker;
 
-@interface
-SentrySessionReplayIntegration () <SentryReachabilityObserver>
+@interface SentrySessionReplayIntegration () <SentryReachabilityObserver>
 - (void)newSceneActivate;
 @end
 
@@ -291,9 +290,9 @@ SentrySessionReplayIntegration () <SentryReachabilityObserver>
                           path:(NSString *)path
                        options:(SentryReplayOptions *)options
 {
-    NSDictionary *info = [[NSDictionary alloc]
-        initWithObjectsAndKeys:sessionId.sentryIdString, @"replayId", path.lastPathComponent,
-        @"path", @(options.onErrorSampleRate), @"errorSampleRate", nil];
+    NSDictionary *info =
+        [[NSDictionary alloc] initWithObjectsAndKeys:sessionId.sentryIdString, @"replayId",
+            path.lastPathComponent, @"path", @(options.onErrorSampleRate), @"errorSampleRate", nil];
 
     NSData *data = [SentrySerialization dataWithJSONObject:info];
 

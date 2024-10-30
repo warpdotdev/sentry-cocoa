@@ -6,8 +6,7 @@
 #import "SentryNSProcessInfoWrapper.h"
 #import "SentryUIDeviceWrapper.h"
 
-@interface
-SentryExtraContextProvider ()
+@interface SentryExtraContextProvider ()
 
 @property (nonatomic, strong) SentryCrashWrapper *crashWrapper;
 @property (nonatomic, strong) SentryNSProcessInfoWrapper *processInfoWrapper;
